@@ -2,7 +2,9 @@
 	<div class="sing-up-container">
 		<div class="sign-up-content">
 			<div class="general-title">
+				<i class="fas fa-chevron-left" @click="close()"></i>
 				<h4>Bienvenido</h4>
+				<h5></h5>
 			</div>
 			<div class="figure">
 				
@@ -13,7 +15,7 @@
 				<label for="">Contraseña</label>
 				<input type="password" name="" v-model="password" placeholder="Ingrese su contraseña" class="phone">
 			</div>
-			<div class="term-and-cond" @click="changeStatus()">
+			<div class="term-and-cond" @click="changeStatus()" v-show="changes = false">
 				<label class="container-check">Acepto los términos y condiciones y politicas de privacidad
   					<input type="checkbox">
  					<span class="checkmark"></span>
@@ -71,8 +73,9 @@
 		background: #002C5E;
 		height: 13vh;
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
+		padding: 0px 25px;
 	}
 
 	.general-title h4{
@@ -81,6 +84,10 @@
 		color: #fff;
 		font-family: 'Poppins', sans-serif;
 		font-weight: 500;
+	}
+
+	.general-title i{
+		color: #fff;
 	}
 
 	.figure{
@@ -281,11 +288,14 @@
 			}
 		},
 		methods:{
+			close(){
+				this.$emit('closeLogin',false);
+			},
 			changeStatus(){
 				this.status_politicas = true;
 			},
 			registerUser(){
-				if ((this.user == "" && this.password == "") || !this.status_politicas) {
+				if (this.user == "" && this.password == "") {
 					$(".name").addClass("error");
 					$(".phone").addClass("error");
 				}else{
@@ -302,6 +312,12 @@
 								self.statusWrong = false;
 							},2000)
 						}
+					}else{
+						var self = this;
+						this.statusWrong = true;
+						setTimeout(() => {
+							self.statusWrong = false;
+						},2000)
 					}
 					
 				}

@@ -205,6 +205,10 @@
 		font-size: 15px;
 	}
 
+	input[type="date"]{
+		-webkit-appearance: none !important;
+	}
+
 	.credit-container select{
 		width: 100%;
 		padding-top: 18px;
@@ -304,17 +308,17 @@
 				statusCredit: false,
 				form:{
 					documentType: "",
-					documentNumber: "",
-					name: "",
-					last_name: "",
+					documentNumber: "1065842122",
+					name: "Juan felipe",
+					last_name: "Maldonado",
 					genre: "",
-					born_date: "",
-					address: "",
-					email: "",
-					phone: "",
-					amount: "",
+					born_date: "27/05/1998",
+					address: "Calle 26#23-23",
+					email: "JFelipe@gmail.com",
+					phone: "3218192314",
+					amount: "250000",
 					civil: "",
-					personNumber: "",
+					personNumber: "2",
 					study: "",
 					personType: "",
 					residence: ""

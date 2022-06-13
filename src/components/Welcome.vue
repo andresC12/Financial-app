@@ -1,7 +1,7 @@
 <template>
 	<div class="welcome-main-container">
-		<MobileLogin v-show="statusLogin"></MobileLogin>
-		<CreateAccount v-show="statusAccount"></CreateAccount>
+		<MobileLogin v-show="statusLogin" @closeLogin="statusLogin = $event"></MobileLogin>
+		<CreateAccount v-show="statusAccount" @closeAccount="statusAccount = $event"></CreateAccount>
 		<div class="welcome-inner-container" v-show="!statusLogin && !statusAccount">
 			<div class="container-img w-100">
 				<img src="/login.png">

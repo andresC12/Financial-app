@@ -12,13 +12,13 @@
 				<h4>Te enviamos un codigo</h4>
 				<h5>Revisa tu bandeja de entrada e ingresa el codigo de 4 digitos</h5>
 				<div class="code-number">
-					<input type="text" v-model="code1">
-					<input type="text" v-model="code2">
-					<input type="text" v-model="code3">
-					<input type="text" v-model="code4">
+					<input type="tel" v-model="code1" id="code1">
+					<input type="tel" v-model="code2" id="code2">
+					<input type="tel" v-model="code3" id="code3">
+					<input type="tel" v-model="code4" id="code4">
 				</div>
 				<div class="warning" v-show="statusCode">
-					<span>Ingresa los codigos</span>
+					<span>Ingresa el codigo</span>
 				</div>
 				<button @click="open()">Confirmar</button>
 			</div>
@@ -184,6 +184,17 @@
 				code2: "",
 				code3: "",
 				code4: "",
+			}
+		},
+		watch:{
+			code1: function(){
+				document.getElementById("code2").focus();
+			},
+			code2: function(){
+				document.getElementById("code3").focus();
+			},
+			code3: function(){
+				document.getElementById("code4").focus();
 			}
 		},
 		methods:{

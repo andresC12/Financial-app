@@ -3,7 +3,9 @@
 		<ConfirmRegister v-show="statusConfirm"></ConfirmRegister>
 		<div class="sign-up-content" v-show="!statusConfirm">
 			<div class="general-title">
+				<i class="fas fa-chevron-left" @click="close()"></i>
 				<h4>Crear cuenta</h4>
+				<h5></h5>
 			</div>
 			<div class="figure">
 				
@@ -12,7 +14,7 @@
 				<input type="text" v-model="email" placeholder="Correo electrónico" class="name">
 				<div class="two-inputs">
 					<input type="text" placeholder="+57" class="code">
-					<input type="text" v-model="phone" placeholder="Celular" class="celphone">
+					<input type="tel" v-model="phone" placeholder="Celular" class="celphone">
 				</div>				
 				<input type="text" v-model="username" placeholder="Nombre de usuario" class="name">
 				<input type="password" v-model="password" placeholder="Ingrese su contraseña" class="phone">
@@ -30,6 +32,9 @@
   					<input type="checkbox">
  					<span class="checkmark"></span>
 				</label>
+			</div>
+			<div class="denied" v-show="statusWrong">
+				<span>Debes aceptar términos y condiciones</span>
 			</div>
 			<div class="button-container">
 				<button @click="registerUser()">Registrarme</button>
@@ -53,6 +58,23 @@
 
 	.error{
 		border: 1px solid red !important;
+	}
+
+	.denied{
+		width: 90%;
+		margin: 0 auto;
+		padding: 10px 25px 10px 25px;
+		text-align: center;
+		border-radius: 10px;
+		background: #D93025;
+		margin-top: 20px;
+	}
+
+	.denied span{
+		color: #fff;
+		font-size: 14px;
+		font-weight: 500;
+		font-family: 'Poppins', sans-serif;
 	}
 
 	.password-tips{
@@ -110,8 +132,9 @@
 		background: #002C5E;
 		height: 13vh;
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
+		padding: 0px 25px;
 	}
 
 	.general-title h4{
@@ -120,6 +143,10 @@
 		color: #fff;
 		font-family: 'Poppins', sans-serif;
 		font-weight: 500;
+	}
+
+	.general-title i{
+		color: #fff;
 	}
 
 	.figure{
@@ -197,13 +224,13 @@
 		left: 0;
 		height: 25px;
 		width: 25px;
-		background-color: #F0F5FE;
+		background-color: #DEE1E6;
 		border-radius: 5px;
 	}
 
 	/* On mouse-over, add a grey background color */
 	.container-check:hover input ~ .checkmark {
-	  background-color:#F0F5FE;
+	  background-color:#DEE1E6;
 	}
 
 	.container-check input:checked ~ .checkmark {
@@ -283,20 +310,38 @@
 				username: "",
 				password: "",
 				confirmPassword: "",
-				statusConfirm: false
+				statusConfirm: false,
+				statusWrong: false
 			}
 		},
 		methods:{
+			close(){
+				this.$emit('closeAccount',false);
+			},
 			changeStatus(){
 				this.status_politicas = true;
 			},
 			registerUser(){
-				if ((this.email == "" && this.phone == "" && this.username == "" && this.password == "" && this.confirmPassword == "") || !this.status_politicas) {
+				if (this.email == "" && this.phone == "" && this.username == "" && this.password == "" && this.confirmPassword == "") {
 					$(".name").addClass("error");
 					$(".phone").addClass("error");
 					$(".code").addClass("error");
 					$(".celphone").addClass("error");
+					setTimeout(() => {
+						$(".name").removeClass("error");
+						$(".phone").removeClass("error");
+						$(".code").removeClass("error");
+						$(".celphone").removeClass("error");
+					},2000)
 				}else{
+					if(!this.status_politicas){
+						this.statusWrong = true;
+						var self = this;
+						setTimeout(() => {
+							self.statusWrong = false;
+						},2000)
+						return false
+					}
 					let user = {
 						name: this.username,
 						email: this.email,

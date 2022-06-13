@@ -12,7 +12,7 @@
 				<input type="text" placeholder="Ingrese la cantidad" v-model="cantidad">
 			</div>
 			<div class="billing-information-list">
-				<h4>Banco de preferencia</h4>
+				<h4>Seleccione banco de preferencia</h4>
 				<div class="single-bank" @click="select(item,index)" v-for="(item, index) in banks" :key="index">
 					<div class="bank-image">
 						<img :src="item.image" alt="">

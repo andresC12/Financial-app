@@ -75,11 +75,6 @@
 		box-sizing: border-box;
 	}
 
-	*:focus{
-		outline: none;
-		box-shadow: none;
-	}
-
 	.mt{
 		margin-top: 10px;
 	}
